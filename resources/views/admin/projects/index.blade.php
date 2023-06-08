@@ -30,6 +30,7 @@
                     <th>Image</th>
                     <th>Title</th>
                     <th>Slug</th>
+                    <th>type</th>
                     <th>Actions</th>
     
                 </tr>
@@ -43,6 +44,9 @@
                     <td><img height="100" src="{{$project->img_path}}" alt="{{$project->title}}"></td>
                     <td>{{$project->title}}</td>
                     <td>{{$project->slug}}</td>
+                    <td>
+                        <span class="badge bg-dark">{{ $project->type?->count()}}</span>
+                    </td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project->id ) }}">
                             VIEW |

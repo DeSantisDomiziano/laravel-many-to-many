@@ -63,6 +63,21 @@
         @enderror
     </div>
 
+    <div class='form-group'>
+    <p>Seleziona i type:</p>
+    @foreach ($types as $type)
+    <div class="form-check @error('types') is-invalid @enderror">
+    <label class='form-check-label'>
+    <input name="types[]" type="checkbox" value="{{ $type->id}}" class="form-check-input" {{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
+    {{ $type->type }}
+    </label>
+    </div>
+    @endforeach
+    @error('types')
+    <div class='invalid-feedback'>{{ $message}}</div>
+    @enderror
+    </div>
+
     <div class="mb-3">
       <label for="overview" class="form-label fw-bold">Overview</label>
       <textarea class="form-control @error('overview') is-invalid @enderror" name="overview" id="overview" rows="3">
