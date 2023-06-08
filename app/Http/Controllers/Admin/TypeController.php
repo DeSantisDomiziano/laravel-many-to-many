@@ -41,8 +41,7 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        Type::create($request);
-        dd(Type::create($request));
+        $type = Type::create($request->all());
 
         return to_route('admin.types.index')->with('messagge', 'tutto ok 😉');
     }

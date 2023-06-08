@@ -45,10 +45,14 @@
                     <td>{{$project->slug}}</td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project->id ) }}">
-                            VIEW 
+                            VIEW |
+                        </a>
+
+                        <a href="{{ route('admin.projects.edit', $project->id ) }}">
+                            EDIT |
                         </a>
     
-                        | EDIT | DELETE
+                        DELETE
     
                     </td>
     

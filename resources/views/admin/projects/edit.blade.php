@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('admin.projects.update') }}" method="post" class="my-5">
+<form action="{{ route('admin.projects.update', $project->id) }}" method="post" class="my-5">
     @csrf
     @method('PUT')
 

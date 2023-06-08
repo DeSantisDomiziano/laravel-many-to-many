@@ -79,7 +79,13 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $validation = $request->validated();
+
+        $validation['slug'] = Project::generateSlug($validation['title']);
+
+        $project->update($validation);
+
+        return to_route('admin.projects.index')->with('message', 'Project added');
     }
 
     /**
@@ -90,6 +96,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return to_route('admin.projects.index')->with('message', 'project deleted');
     }
 }
