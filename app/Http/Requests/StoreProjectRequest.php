@@ -27,7 +27,10 @@ class StoreProjectRequest extends FormRequest
             "title" => ['required', 'min:2', 'max:70'],
             "img_path" => ['required', 'min:10'],
             "programming_language" => ['required', 'min:2', 'max:100'],
-            "overview" => ['nullable', 'min:2']
+            "overview" => ['nullable', 'min:2'],
+            "link_code" => ['nullable', 'min:2'],
+            "link_website" => ['nullable', 'min:2'],
+            "type_id" => ['exists:types,id']
         ];
     }
 

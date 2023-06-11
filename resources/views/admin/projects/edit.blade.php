@@ -64,18 +64,24 @@
     </div>
 
     <div class='form-group'>
-    <p>Seleziona i type:</p>
-    @foreach ($types as $type)
-    <div class="form-check @error('types') is-invalid @enderror">
-    <label class='form-check-label'>
-    <input name="types[]" type="checkbox" value="{{ $type->id}}" class="form-check-input" {{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
-    {{ $type->type }}
-    </label>
-    </div>
-    @endforeach
-    @error('types')
-    <div class='invalid-feedback'>{{ $message}}</div>
-    @enderror
+
+        <p>Seleziona i type:</p>
+        
+        @foreach ($types as $type)
+            <div class="form-check @error('types') is-invalid @enderror">
+                <label class='form-check-label'>
+                @if($errors->any())
+                <input name="types[]" type="checkbox" value="{{ $type->id }}" class="form-check-input" {{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
+                @else
+                <input name='types[]' type='checkbox' value='{{ $type->id }}' class='form-check-input' {{ $project->types?->contains($type) ? 'checked' : '' }}>
+                @endif
+                {{ $type->type }}
+                </label>
+            </div>
+            @endforeach
+            @error('type')
+            <div class='invalid-feedback'>{{ $message}}</div>
+            @enderror
     </div>
 
     <div class="mb-3">

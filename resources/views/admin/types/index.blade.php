@@ -41,6 +41,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Type</th>
+                            <th>project</th>
                             <th>Actions</th>
             
                         </tr>
@@ -52,12 +53,47 @@
                         <tr class="table-primary">
                             <td scope="row">{{$type->id}}</td>
                             <td>{{$type->type}}</td>
+                            <td>{{$type->projects->count()}}</td>
                             <td>
                                 <a href="{{ route('admin.types.show', $type->id ) }}">
                                     VIEW 
                                 </a>
             
-                                | EDIT | DELETE
+                                | EDIT 
+
+                                <!-- Modal trigger button -->
+                        <button type="button" class="btn p-0 me-2 fs-4 text-danger " data-bs-toggle="modal" data-bs-target="#id-{{ $type->id }}">
+                        <i class="fa-solid fa-skull"></i>
+                        </button>
+                        
+                        <!-- Modal Body -->
+                        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                        <div class="modal fade" id="id-{{ $type->id }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTitle-{{ $type->id }}">Cancel <br> {{ $type->name }} </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Do you really want it? 😭</span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                            <i class="fa-solid fa-xl fa-xmark text-success"></i>
+                                        </button>
+                                        <form action="{{ route('admin.types.destroy', $type->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            
+                                            <button type="submit" class="btn">
+                                                <i class="fa-solid fa-xl fa-trash text-danger" title="delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             
                             </td>
             

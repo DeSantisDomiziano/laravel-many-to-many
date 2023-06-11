@@ -18,8 +18,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::orderByDesc('id')->get();
-
-        return view('admin.projects.index', compact('projects'));
+        $types = Type::all();
+        return view('admin.projects.index', compact('projects', 'types'));
     }
 
     /**
@@ -29,7 +29,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -44,7 +45,11 @@ class ProjectController extends Controller
 
         $validation['slug'] = Project::generateSlug($validation['title']);
 
-        Project::create($validation);
+        $new_project = Project::create($validation);
+
+        if ($request->has('types')) {
+            $new_project->types()->attach($request->types);
+        }
 
         return to_route('admin.projects.index')->with('message', 'Project added');
     }
@@ -87,6 +92,11 @@ class ProjectController extends Controller
 
         $project->update($validation);
 
+        if ($request->has('types')) {
+            $project->types()->sync($request->types);
+        }
+
+        dd($project);
         return to_route('admin.projects.index')->with('message', 'Project edit');
     }
 

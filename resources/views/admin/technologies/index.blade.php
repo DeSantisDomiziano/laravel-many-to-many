@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h1>Projects</h1>
+    <h1>technologies</h1>
 
     <div class="px-5">
         @if(session('message'))
@@ -15,7 +15,7 @@
         @endif
     </div>
 
-    <a href="{{ route('admin.projects.create') }}" class="btn btn-warning fw-bold my-2">+ Add Project</a>
+    <a href="{{ route('admin.technologies.create') }}" class="btn btn-warning fw-bold my-2">+ Add technology</a>
     
     <div class="table-responsive">
         <table class="table table-striped
@@ -27,10 +27,9 @@
     
                 <tr>
                     <th>ID</th>
-                    <th>Image</th>
-                    <th>Title</th>
+                    <th>technology</th>
                     <th>Slug</th>
-                    <th>type</th>
+                    <th>Projects</th>
                     <th>Actions</th>
     
                 </tr>
@@ -38,36 +37,35 @@
             <tbody class="table-group-divider">
     
     
-                @forelse ($projects as $project)
+                @forelse ($technologies as $technology)
                 <tr class="table-primary">
-                    <td scope="row">{{$project->id}}</td>
-                    <td><img height="100" src="{{$project->img_path}}" alt="{{$project->title}}"></td>
-                    <td>{{$project->title}}</td>
-                    <td>{{$project->slug}}</td>
+                    <td scope="row">{{$technology->id}}</td>
+                    <td>{{$technology->name}}</td>
+                    <td>{{$technology->slug}}</td>
                     <td>
-                        <span class="badge bg-dark">{{ $project->type?->type}}</span>
+                        <span class="badge bg-dark">{{ $technology->projects->count()}}</span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.projects.show', $project->slug ) }}">
+                        <a href="{{ route('admin.technologies.show', $technology->id ) }}">
                             VIEW |
                         </a>
 
-                        <a href="{{ route('admin.projects.edit', $project->slug ) }}">
+                        <a href="{{ route('admin.technologies.edit', $technology->id ) }}">
                             EDIT |
                         </a>
     
                         <!-- Modal trigger button -->
-                        <button type="button" class="btn p-0 me-2 fs-4 text-danger " data-bs-toggle="modal" data-bs-target="#id-{{ $project->id }}">
+                        <button type="button" class="btn p-0 me-2 fs-4 text-danger " data-bs-toggle="modal" data-bs-target="#id-{{ $technology->id }}">
                         <i class="fa-solid fa-skull"></i>
                         </button>
                         
                         <!-- Modal Body -->
                         <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                        <div class="modal fade" id="id-{{ $project->id }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                        <div class="modal fade" id="id-{{ $technology->id }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalTitle-{{ $project->id }}">Cancel <br> {{ $project->name }} </h5>
+                                        <h5 class="modal-title" id="modalTitle-{{ $technology->id }}">Cancel <br> {{ $technology->name }} </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -77,7 +75,7 @@
                                         <button type="button" class="btn" data-bs-dismiss="modal">
                                             <i class="fa-solid fa-xl fa-xmark text-success"></i>
                                         </button>
-                                        <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="post" class="d-inline">
+                                        <form action="{{ route('admin.technologies.destroy', $technology->id) }}" method="post" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             
@@ -95,7 +93,7 @@
                 </tr>
                 @empty
                 <tr class="table-primary">
-                    <td scope="row">No projects 😅</td>
+                    <td scope="row">No technologies 😅</td>
     
                 </tr>
                 @endforelse
