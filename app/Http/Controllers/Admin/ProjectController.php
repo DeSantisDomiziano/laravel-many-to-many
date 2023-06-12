@@ -7,6 +7,8 @@ use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -30,7 +32,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -41,6 +45,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        //dd($request->all());
+
         $validation = $request->validated();
 
         $validation['slug'] = Project::generateSlug($validation['title']);
@@ -50,6 +56,12 @@ class ProjectController extends Controller
         if ($request->has('types')) {
             $new_project->types()->attach($request->types);
         }
+
+        if ($request->hasFile('img_path')) {
+            $img_path = Storage::put('uploads', $request->img_path);
+            //dd($img_path);
+        }
+
 
         return to_route('admin.projects.index')->with('message', 'Project added');
     }
@@ -96,7 +108,17 @@ class ProjectController extends Controller
             $project->types()->sync($request->types);
         }
 
-        dd($project);
+        
+        if ($request->hasFile('img_path')) {
+
+            if ($project->img_path) {
+                Storage::delete($project->img_path);
+            }
+            $img_path = Storage::put('uploads', $request->img_path);
+            //dd($img_path);
+        }
+
+        //dd($project);
         return to_route('admin.projects.index')->with('message', 'Project edit');
     }
 
@@ -108,6 +130,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->img_path) {
+            Storage::delete($project->img_path);
+        }
+        
         $project->delete();
         return to_route('admin.projects.index')->with('message', 'project deleted');
     }

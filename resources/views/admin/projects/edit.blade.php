@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('admin.projects.update', $project->id) }}" method="post" class="my-5">
+<form action="{{ route('admin.projects.update', $project->id) }}" method="post" class="my-5" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -21,9 +21,8 @@
 
     <div class="mb-3">
         <label for="img_path" class="form-label fw-bold">Image Path</label>
-        <input type="text" name="img_path" id="img_path" placeholder="" aria-describedby="helpId"
-        class="form-control form-control @error('img_path') is-invalid @enderror"
-        value="{{ old('img_path', $project->img_path) }}" required>
+        <input type="file" name="img_path" id="img_path" placeholder="" aria-describedby="helpId"
+        class="form-control form-control @error('img_path') is-invalid @enderror" required>
         <small id="helpId" class="text-muted">Change Image Path</small>
         @error('img_path')
             <div class="alert alert-danger">{{ $message }}</div>

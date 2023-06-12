@@ -25,12 +25,13 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             "title" => ['required', 'min:2', 'max:70'],
-            "img_path" => ['required', 'min:10'],
+            "img_path" => ['required', 'image', 'max:1000'],
             "programming_language" => ['required', 'min:2', 'max:100'],
             "overview" => ['nullable', 'min:2'],
             "link_code" => ['nullable', 'min:2'],
             "link_website" => ['nullable', 'min:2'],
-            "type_id" => ['exists:types,id']
+            "type_id" => ['exists:types[],id'],
+            "technology_id" => ['exists:technologies[],id']
         ];
     }
 
