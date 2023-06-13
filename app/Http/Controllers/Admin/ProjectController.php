@@ -115,9 +115,8 @@ class ProjectController extends Controller
             }
             //dd($img_path = Storage::put('uploads', $request->img_path));
             $img_path = Storage::put('uploads', $request->img_path);
-            dd($validation['img_path']);
-            $validation->img_path = $img_path;
-            $validation->save();
+            //dd($validation['img_path']);
+            $validation['img_path'] = $img_path;
         }
 
         $project->update($validation);
