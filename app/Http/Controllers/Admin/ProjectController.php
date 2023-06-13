@@ -45,21 +45,19 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //dd($request->all());
 
         $validation = $request->validated();
 
         $validation['slug'] = Project::generateSlug($validation['title']);
 
         $new_project = Project::create($validation);
-
-        if ($request->has('types')) {
-            $new_project->types()->attach($request->types);
-        }
+        
+        $new_project->type_id;
 
         if ($request->hasFile('img_path')) {
+
             $img_path = Storage::put('uploads', $request->img_path);
-            //dd($img_path);
+
         }
 
 
@@ -105,7 +103,7 @@ class ProjectController extends Controller
         $project->update($validation);
 
         if ($request->has('types')) {
-            $project->types()->sync($request->types);
+            $project->type_id;
         }
 
         
@@ -133,7 +131,7 @@ class ProjectController extends Controller
         if ($project->img_path) {
             Storage::delete($project->img_path);
         }
-        
+
         $project->delete();
         return to_route('admin.projects.index')->with('message', 'project deleted');
     }

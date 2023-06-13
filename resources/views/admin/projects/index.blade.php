@@ -31,6 +31,7 @@
                     <th>Title</th>
                     <th>Slug</th>
                     <th>type</th>
+                    <th>technologies</th>
                     <th>Actions</th>
     
                 </tr>
@@ -41,11 +42,14 @@
                 @forelse ($projects as $project)
                 <tr class="table-primary">
                     <td scope="row">{{$project->id}}</td>
-                    <td><img height="100" src="{{$project->img_path}}" alt="{{$project->title}}"></td>
+                    <td><img height="100" src="{{ asset('storage/' . $project->img_path) }}" alt="{{$project->title}}"></td>
                     <td>{{$project->title}}</td>
                     <td>{{$project->slug}}</td>
                     <td>
-                        <span class="badge bg-dark">{{ $project->type?->type}}</span>
+                        <span class="badge bg-dark">{{ $project->types?->type}}</span>
+                    </td>
+                    <td>
+                        <span class="badge bg-dark"></span>
                     </td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project->slug ) }}">

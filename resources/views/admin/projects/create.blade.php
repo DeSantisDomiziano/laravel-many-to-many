@@ -29,17 +29,6 @@
     </div>
 
     <div class="mb-3">
-        <label for="programming_language" class="form-label fw-bold">Programming Language</label>
-        <input type="text" name="programming_language" id="programming_language" placeholder="" aria-describedby="helpId"
-        class="form-control form-control @error('programming_language') is-invalid @enderror"
-        value="{{ old('programming_language') }}" required>
-        <small id="helpId" class="text-muted">Add Programming Language</small>
-        @error('programming_language')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div class="mb-3">
         <label for="link_code" class="form-label fw-bold">Link Code</label>
         <input type="text" name="link_code" id="link_code" placeholder="" aria-describedby="helpId"
         class="form-control form-control @error('link_code') is-invalid @enderror"
@@ -66,7 +55,7 @@
     @foreach ($types as $type)
     <div class="form-check @error('types') is-invalid @enderror">
     <label class='form-check-label'>
-    <input name='types[]' type='checkbox' value='{{ $type->id}}' class='form-check-input' {{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
+    <input name='types[]' type='checkbox' value='{{ $type->id}}' class='form-check-input' {{ in_array($type->id, old('type', [])) ? 'checked' : '' }}>
     {{ $type->type }}
     </label>
     </div>

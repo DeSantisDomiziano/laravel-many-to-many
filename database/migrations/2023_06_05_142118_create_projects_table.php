@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('title', 70)->unique();
             $table->string('slug');
             $table->string('img_path');
-            $table->string('programming_language');
             $table->string('link_code');
             $table->string('link_website');
             $table->text('overview')->nullable();

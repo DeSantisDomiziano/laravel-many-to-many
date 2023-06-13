@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('admin.projects.update', $project->id) }}" method="post" class="my-5" enctype="multipart/form-data">
+<form action="{{ route('admin.projects.update', $project->slug) }}" method="post" class="my-5" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -25,17 +25,6 @@
         class="form-control form-control @error('img_path') is-invalid @enderror" required>
         <small id="helpId" class="text-muted">Change Image Path</small>
         @error('img_path')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div class="mb-3">
-        <label for="programming_language" class="form-label fw-bold">Programming Language</label>
-        <input type="text" name="programming_language" id="programming_language" placeholder="" aria-describedby="helpId"
-        class="form-control form-control @error('programming_language') is-invalid @enderror"
-        value="{{ old('programming_language', $project->programming_language) }}" required>
-        <small id="helpId" class="text-muted">Change Programming Language</small>
-        @error('programming_language')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>

@@ -53,7 +53,11 @@
                         <tr class="table-primary">
                             <td scope="row">{{$type->id}}</td>
                             <td>{{$type->type}}</td>
-                            <td>{{$type->projects->count()}}</td>
+                            <td>
+                                <span class="badge bg-dark">
+                                    {{$type->projects->count()}}
+                                </span>
+                            </td>
                             <td>
                                 <a href="{{ route('admin.types.show', $type->id ) }}">
                                     VIEW 
