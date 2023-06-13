@@ -87,7 +87,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -108,14 +109,17 @@ class ProjectController extends Controller
             $project->type_id;
         }
 
+        if ($request->has('technologies')) {
+            $project->technologies()->detach();
+            $project->technologies()->attach($validation['technologies']);
+        }
+
         
         if ($request->hasFile('img_path')) {
-            if ($project->img_path) {
+            if ($project['img_path']) {
                 Storage::delete($project->img_path);
             }
-            //dd($img_path = Storage::put('uploads', $request->img_path));
             $img_path = Storage::put('uploads', $request->img_path);
-            //dd($validation['img_path']);
             $validation['img_path'] = $img_path;
         }
 
