@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Project extends Model
@@ -19,9 +19,9 @@ class Project extends Model
         return Str::slug($title, '-');
     }
 
-    public function type(): BelongsTo {
+    public function types(): HasMany {
 
-        return $this->belongsTo(Type::class);
+        return $this->hasMany(Type::class);
     }
 
     public function technologies() : BelongsToMany {

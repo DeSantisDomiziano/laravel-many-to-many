@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Type extends Model
 {
@@ -12,8 +12,8 @@ class Type extends Model
     
     protected $fillable = ['type'];
 
-    public function projects(): HasMany {
+    public function project(): BelongsTo {
         
-        return $this->hasMany(Project::class);
+        return $this->BelongsTo(Project::class);
     }
 }

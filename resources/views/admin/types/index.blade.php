@@ -55,7 +55,7 @@
                             <td>{{$type->type}}</td>
                             <td>
                                 <span class="badge bg-dark">
-                                    {{$type->projects->count()}}
+                                    {{$type->project()->count()}}
                                 </span>
                             </td>
                             <td>

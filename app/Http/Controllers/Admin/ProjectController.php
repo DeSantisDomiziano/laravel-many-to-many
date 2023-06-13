@@ -54,11 +54,9 @@ class ProjectController extends Controller
         
         $new_project->type_id;
 
-        if ($request->hasFile('img_path')) {
 
-            $img_path = Storage::put('uploads', $request->img_path);
+        $img_path = Storage::put('uploads', $request->img_path);
 
-        }
 
 
         return to_route('admin.projects.index')->with('message', 'Project added');

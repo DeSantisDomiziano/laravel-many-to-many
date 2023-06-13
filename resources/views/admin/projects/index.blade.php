@@ -46,7 +46,7 @@
                     <td>{{$project->title}}</td>
                     <td>{{$project->slug}}</td>
                     <td>
-                        <span class="badge bg-dark">{{ $project->types?->type}}</span>
+                        <span class="badge bg-dark">{{ $project->type_id}}</span>
                     </td>
                     <td>
                         <span class="badge bg-dark"></span>
