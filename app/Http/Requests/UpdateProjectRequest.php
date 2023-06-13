@@ -25,9 +25,12 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             "title" => ['required', 'min:2', 'max:70'],
-            "img_path" => ['required', 'max:1000', 'image'],
+            "img_path" => ['required', 'image', 'max:1000'],
             "overview" => ['nullable', 'min:2'],
-            "type_id" => ['exists:types,id']
+            "link_code" => ['nullable', 'min:2'],
+            "link_website" => ['nullable', 'min:2'],
+            "type_id" => ['exists:types,id'],
+            "technologies" => ['exists:technologies,id']
         ];
     }
 }

@@ -53,12 +53,16 @@ class ProjectController extends Controller
         $new_project = Project::create($validation);
         
         
-        
-        $img_path = Storage::put('uploads', $request->img_path);
-        
-        $new_project->img_path = $img_path;
-        $new_project->save();
+        if ($request->hasFile('img_path')) {
+            $img_path = Storage::put('uploads', $request->img_path);
+            
+            $new_project->img_path = $img_path;
+            $new_project->save();
+        }
 
+        if ($request['technologies']) {
+            $new_project->technologies()->attach($validation['technologies']);
+        }
 
         return to_route('admin.projects.index')->with('message', 'Project added');
     }
@@ -99,23 +103,25 @@ class ProjectController extends Controller
 
         $validation['slug'] = Project::generateSlug($validation['title']);
 
-        $project->update($validation);
-
+        
         if ($request->has('types')) {
             $project->type_id;
         }
 
         
         if ($request->hasFile('img_path')) {
-
             if ($project->img_path) {
                 Storage::delete($project->img_path);
             }
+            //dd($img_path = Storage::put('uploads', $request->img_path));
             $img_path = Storage::put('uploads', $request->img_path);
-            //dd($img_path);
+            dd($validation['img_path']);
+            $validation->img_path = $img_path;
+            $validation->save();
         }
 
-        //dd($project);
+        $project->update($validation);
+
         return to_route('admin.projects.index')->with('message', 'Project edit');
     }
 

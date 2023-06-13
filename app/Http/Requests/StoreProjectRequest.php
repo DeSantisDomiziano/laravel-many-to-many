@@ -30,7 +30,7 @@ class StoreProjectRequest extends FormRequest
             "link_code" => ['nullable', 'min:2'],
             "link_website" => ['nullable', 'min:2'],
             "type_id" => ['exists:types,id'],
-            "technology_id" => ['exists:technologies[],id']
+            "technologies" => ['exists:technologies,id']
         ];
     }
 
