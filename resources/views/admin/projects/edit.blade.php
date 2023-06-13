@@ -63,7 +63,7 @@
                 @else
                 <input name='types[]' type='checkbox' value='{{ $type->id }}' class='form-check-input' {{ $project->types?->contains($type) ? 'checked' : '' }}>
                 @endif
-                {{ $type->type }}
+                {{ $type->name }}
                 </label>
             </div>
             @endforeach

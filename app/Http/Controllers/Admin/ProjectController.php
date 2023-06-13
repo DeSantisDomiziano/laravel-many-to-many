@@ -52,11 +52,12 @@ class ProjectController extends Controller
 
         $new_project = Project::create($validation);
         
-        $new_project->type_id;
-
-
+        
+        
         $img_path = Storage::put('uploads', $request->img_path);
-
+        
+        $new_project->img_path = $img_path;
+        $new_project->save();
 
 
         return to_route('admin.projects.index')->with('message', 'Project added');
